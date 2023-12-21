@@ -54,7 +54,6 @@ router.post('/:mobileWithdrawal', async (req, res, next) => {
             console.log(err);
             res.status(500).json({ message: 'Invalid Currency Symbol', error: err });
         })
-    const currency = {}
 });
 
 //  FETCH TRANSACTION DETAILS
