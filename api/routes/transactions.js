@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
 router.post('/mobileDeposit', async (req, res, next) => {
     const arguments = {
         phoneNumber: req.body.phoneNumber,
-        walletAddress: req.body.walletAddress,
+        worldID: req.body.worldID,
         assetSymbol: req.body.assetSymbol,
         currencySymbol: req.body.currencySymbol,
         fiatValue: req.body.fiatValue,
@@ -37,7 +37,7 @@ router.post('/mobileDeposit', async (req, res, next) => {
 router.post('/:mobileWithdrawal', async (req, res, next) => {
     const arguments = {
         phoneNumber: req.body.phoneNumber,
-        privateKey: req.body.privateKey,
+        worldID: req.body.worldID,
         assetSymbol: req.body.assetSymbol,
         fiatSymbol: req.body.fiatSymbol,
         fiatValue: req.body.fiatValue,
@@ -60,7 +60,7 @@ router.post('/:mobileWithdrawal', async (req, res, next) => {
 router.get('/:transactionId', (req, res, next) => {
     const id = req.params.transactionId;
     Transaction.findById(id)
-        .select('type createdAt transactionHash apiKey paymentReferenceId crypto fiat walletAddress _id')
+        .select('type createdAt transactionHash apiKey paymentReferenceId crypto fiat worldID _id')
         .exec()
         .then(doc => {
             console.log(doc);

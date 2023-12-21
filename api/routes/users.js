@@ -3,6 +3,8 @@ const router = express.Router();
 
 const User = require('../models/user')
 
+//  HANDLES USERS KYC OPERATIONS
+
 //  FETCH ALL USERS
 router.get('/', (req, res, next) => {
     User.find()
@@ -40,7 +42,7 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
 
     const user = new User({
-        _id: req.body.walletAddress,
+        _id: req.body.worldID,
         name: req.body.name,
         country: req.body.country,
         registrationNumber: req.body.registrationNumber,
@@ -48,7 +50,7 @@ router.post('/', (req, res, next) => {
         phoneNumber: req.body.phoneNumber,
         email: req.body.email,
         verified: false,
-        walletAddress: req.body.walletAddress,
+        worldID: req.body.worldID,
         apiKey: req.body.apiKey,
         createdAt: Date.now(),
     })
@@ -65,7 +67,7 @@ router.post('/', (req, res, next) => {
                 phoneNumber: result.phoneNumber,
                 email: result.email,
                 verified: result.verified,
-                walletAddress: result.walletAddress,
+                worldID: result.worldID,
                 apiKey: result.apiKey,
                 createdAt: result.createdAt,
                 request: {
@@ -84,10 +86,10 @@ router.post('/', (req, res, next) => {
 });
 
 //  FETCH USER DETAILS
-router.get('/:walletAddress', (req, res, next) => {
-    const id = req.params.walletAddress;
+router.get('/:worldID', (req, res, next) => {
+    const id = req.params.worldID;
     User.findById(id)
-        .select('verified country name walletAddress')
+        .select('verified country name worldID')
         .exec()
         .then(doc => {
             console.log(doc);
@@ -96,7 +98,7 @@ router.get('/:walletAddress', (req, res, next) => {
                     user: doc,
                 });
             } else {
-                res.status(404).json({ message: 'No valid entry found for Provided Wallet Address' });
+                res.status(404).json({ message: 'No valid entry found for Provided worldID' });
             }
         })
         .catch(err => {
@@ -107,8 +109,8 @@ router.get('/:walletAddress', (req, res, next) => {
 
 
 //  UPDATE USER FIELDS
-router.patch('/:walletAddress', (req, res, next) => {
-    const id = req.params.walletAddress;
+router.patch('/:worldID', (req, res, next) => {
+    const id = req.params.worldID;
     const updateOps = {};
     for (const ops of req.body) {
         updateOps[ops.propName] = ops.value;
@@ -132,8 +134,8 @@ router.patch('/:walletAddress', (req, res, next) => {
 });
 
 //  DELETE USER
-router.delete('/:walletAddress', (req, res, next) => {
-    const id = req.params.walletAddress;
+router.delete('/:worldID', (req, res, next) => {
+    const id = req.params.worldID;
     User.remove({ _id: id })
         .exec()
         .then(result => {

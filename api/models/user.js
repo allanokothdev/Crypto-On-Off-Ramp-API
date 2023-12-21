@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
     phoneNumber: { type: String, required: true },
     email: { type: Number, required: true },
     registrationDocUrl: { type: String, required: true },
-    walletAddress: { type: String, required: true },
+    worldID: { type: String, required: true },
     country: { type: String, required: true },
     verified: { type: Boolean, required: true },
     apiKey: { type: String, required: true },
