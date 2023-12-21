@@ -8,7 +8,9 @@
     "start": "nodemon server.js"
   },
   "keywords": [
-    "Hurupay"
+    "REST API",
+    "NodeJS",
+    "Express"
   ],
   "author": "Allan Okoth",
   "license": "ISC",
